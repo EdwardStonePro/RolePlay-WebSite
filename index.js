@@ -43,11 +43,16 @@ io.on('connection', function (socket) {
                 console.log(msg);
                 var splitString = /(\w+)\s(\w+)\s(\w+)/;
                 var resultSplitString = msg.match(splitString);
-                console.log(resultSplitString);
-                idname = resultSplitString[1];
-                msg = resultSplitString[2] + " " + resultSplitString[3];
-                console.log(idname + "+" + msg);
-                msg = rollThemAll(msg);
+                
+                if(resultSplitString){
+                    console.log(resultSplitString);
+                    idname = resultSplitString[1];
+                    msg = resultSplitString[2] + " " + resultSplitString[3];
+                    console.log(idname + "+" + msg);
+                    msg = rollThemAll(msg);
+                } else {
+                    msg = wrongCommand(msg)
+                }
 
             } else {
                 msg = rollThemAll(msg);
