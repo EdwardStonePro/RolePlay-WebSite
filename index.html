@@ -159,9 +159,9 @@
 <div class="input-group input-group-md fixed_class_test" id="container_identification2">
             <span class="input-group-addon" id="basic-addon2">Message</span>
             <input type="text" id="messageBox" class="form-control input_color" placeholder="Type a message..."
-                   aria-describedby="basic-addon2">
+                   aria-describedby="basic-addon2" onkeydown="messageSendEnter(event)">
             <span class="input-group-btn">
-            <button type="submit" class="btn btn-primary btn_color" value="Send" onClick="submitSend()"
+            <button type="submit" class="btn btn-primary btn_color" value="Send" onClick="messageSend()"
                     id="submitMessage">
                 Submit
             </button></span>
@@ -169,11 +169,6 @@
 
 <script>
     var socket = io();
-    $('submitMessage').submit(function () {
-        socket.emit('chat message', $('#messageBox').val());
-        $('#messageBox').val('');
-        return false;
-    });
     socket.on('chat message', function (msg) {
         $('#messages').append($('<li class="list-group-item">').text(msg));
         var elem = document.getElementById('messagewindow');
@@ -191,6 +186,20 @@
         console.log(name);
         $('#messages').toggle('slow');
         socket.emit('name chat', name)
+    }
+
+     function messageSend(){
+         socket.emit('chat message', $('#messageBox').val());
+         $('#messageBox').val('');
+         return false;
+     }
+
+    function messageSendEnter(eventEnter){
+        if (eventEnter.keyCode == 13){
+            socket.emit('chat message', $('#messageBox').val());
+            $('#messageBox').val('');
+            return false;
+        }
     }
 </script>
 
