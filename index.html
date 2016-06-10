@@ -18,14 +18,15 @@
 
         .top_decal {
             margin-top: 10px;
-            margin-left: 10px;
+            margin-left: 80px;
         }
 
         body {
             font-family: 'Cardo', Arial, serif;
             font-weight: 700;
             font-size: 16px;
-            background-color: #7672BF
+            background-color: #7672BF;
+            padding-top: 70px;;
         }
 
         #chatbox {
@@ -92,13 +93,36 @@
             background-color: #A39ED3;
             color: white;
         }
+
+        .fixed_class_test{
+            position:fixed !important;
+            bottom:10px;
+            width:55%;
+            left: 50%;
+            transform: translate(-50%, 0);
+        }
+        .fixed_class{
+            position:fixed !important;
+            bottom:10px;
+            width:930px;
+            left: 46%;
+            transform: translate(-50%, 0);
+        }
+
+        .fixed_class_button{
+            position:fixed !important;
+            bottom:10px;
+            width:100px;
+            left: 70%;
+
+        }
     </style>
 
 </head>
 
 
 <body>
-<nav class="navbar navbar-light bg-faded">
+<nav class="navbar navbar-light bg-faded navbar-fixed-top ">
     <div class="container-fluid">
         <div class="navbar-header">
             <a class="navbar-brand" href="#">RolePlay: The New Age</a>
@@ -114,7 +138,7 @@
 
 <div class="container" id="container_identification">
     <div class="row">
-        <div class="input-group col-md-11 top_decal input-group-md">
+        <div class="input-group col-md-10 col-md-offset-1 top_decal input-group-md">
             <span class="input-group-addon" id="basic-addon1">Chat name</span>
             <input type="text" id="username_value" class="form-control input_color" placeholder="Username"
                    aria-describedby="basic-addon1">
@@ -132,26 +156,22 @@
         <ul style="display:none;" id="messages" class="list-group"></ul>
     </div>
 </div>
-<div class="container">
-    <div class="row">
-        <form>
-            <div class="col-md-10">
-                <input type="text" class="form-control input_color" id="m" autocomplete="off"/>
-            </div>
-            <div class="col-md-2">
-                <button class="btn btn-primary btn-block btn_color" id="form">Send</button>
-            </div>
-        </form>
-    </div>
-
+<div class="input-group input-group-md fixed_class_test" id="container_identification2">
+            <span class="input-group-addon" id="basic-addon2">Message</span>
+            <input type="text" id="messageBox" class="form-control input_color" placeholder="Type a message..."
+                   aria-describedby="basic-addon2">
+            <span class="input-group-btn">
+            <button type="submit" class="btn btn-primary btn_color" value="Send" onClick="submitSend()"
+                    id="submitMessage">
+                Submit
+            </button></span>
 </div>
-
 
 <script>
     var socket = io();
-    $('form').submit(function () {
-        socket.emit('chat message', $('#m').val());
-        $('#m').val('');
+    $('submitMessage').submit(function () {
+        socket.emit('chat message', $('#messageBox').val());
+        $('#messageBox').val('');
         return false;
     });
     socket.on('chat message', function (msg) {
