@@ -2,10 +2,6 @@
 <link href='https://fonts.googleapis.com/css?family=Cardo:700' rel='stylesheet' type='text/css'>
 <html>
 <head>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.3.2/js/tether.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-    <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
-    <script src="https://s3-eu-west-1.amazonaws.com/librariesweb/bootstrap.min.js"></script>
     <title>Socket.IO chat</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://s3-eu-west-1.amazonaws.com/librariesweb/bootstrap.min.css" rel="stylesheet" media="all">
@@ -28,20 +24,25 @@
             background-color: #7672BF;
             padding-top: 70px;;
         }
+
         @media screen and (max-width: 768px) {
-            body { padding-top: 0px; }
+            body {
+                padding-top: 150px;
+            }
+        }
+
+        .background_overlay {
         }
 
         #chatbox {
-            height: 850px;
-            position: relative;
+
         }
 
         #messagewindow {
-            position: absolute;
-            overflow: auto;
-            top: 0;
+            position: relative;
+            top: 2px;
             bottom: 30px;
+            padding-bottom: 110px
         }
 
         #namechatform {
@@ -59,6 +60,7 @@
         #messages {
             list-style-type: none;
             padding-top: 10px;
+            width: 1200px;
         }
 
         #messages li {
@@ -97,25 +99,29 @@
             color: white;
         }
 
-        .fixed_class_test{
-            position:fixed !important;
-            bottom:10px;
-            width:55%;
+        .white_background {
+            display:block !important;
+            position: fixed !important;
+            width:100%;
             left: 50%;
             transform: translate(-50%, 0);
+            bottom:0;
+            background-color: white;
         }
-        .fixed_class{
-            position:fixed !important;
-            bottom:10px;
-            width:930px;
+
+        .fixed_class {
+
+            position: fixed !important;
+            bottom: 10px;
+            width: 930px;
             left: 46%;
             transform: translate(-50%, 0);
         }
 
-        .fixed_class_button{
-            position:fixed !important;
-            bottom:10px;
-            width:100px;
+        .fixed_class_button {
+            position: fixed !important;
+            bottom: 10px;
+            width: 100px;
             left: 70%;
 
         }
@@ -125,55 +131,73 @@
 
 
 <body>
-<nav class="navbar navbar-light bg-faded navbar-fixed-top container-fluid">
-    <div>
-        <div class="navbar-header">
-            <a class="navbar-brand" href="#">RolePlay: The New Age</a>
+<div class="background_overlay">
+    <nav class="navbar navbar-light bg-faded navbar-fixed-top container-fluid">
+        <div>
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">RolePlay: The New Age</a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li class="nav-item active"><a href="#" class="nav-link">Chat Home</a></li>
+                <li class="nav-item"><a href="#" class="nav-link">Images</a></li>
+                <li class="nav-item"><a href="#" class="nav-link">Coming soon</a></li>
+                <li class="nav-item"><a href="#" class="nav-link">Coming soon</a></li>
+            </ul>
         </div>
-        <ul class="nav navbar-nav">
-            <li class="nav-item active"><a href="#" class="nav-link">Chat Home</a></li>
-            <li class="nav-item"><a href="#" class="nav-link">Images</a></li>
-            <li class="nav-item"><a href="#" class="nav-link">Coming soon</a></li>
-            <li class="nav-item"><a href="#" class="nav-link">Coming soon</a></li>
-        </ul>
-    </div>
-</nav>
+    </nav>
 
-<div class="container-fluid" id="container_identification">
-    <div class="row">
-        <div class="input-group col-md-6 col-xs-8 top_decal input-group-md">
-            <span class="input-group-addon" id="basic-addon1">Chat name</span>
-            <input type="text" id="username_value" class="form-control input_color" placeholder="Username"
-                   aria-describedby="basic-addon1">
+    <div class="container" id="container_identification">
+
+            <div class="input-group col-md-6 col-md-offset-3 col-xs-8 input-group-md">
+                <span class="input-group-addon" id="basic-addon1">Chat name</span>
+                <input type="text" id="username_value" class="form-control input_color" placeholder="Username"
+                       aria-describedby="basic-addon1">
             <span class="input-group-btn">
             <button type="submit" class="btn btn-primary btn_color" value="Submit" onClick="submitSend()"
                     id="submitform">
                 Submit
             </button></span>
+            </div>
+
         </div>
-
     </div>
-</div>
-<div class="container text-center" id="chatbox">
-    <div id="messagewindow">
-        <ul style="display:none;" id="messages" class="list-group"></ul>
+    <div class="container text-center" id="chatbox">
+        <div id="messagewindow">
+            <ul style="display:none;" id="messages" class="list-group"></ul>
+        </div>
     </div>
-</div>
-<div class="input-group input-group-md fixed_class_test" id="container_identification2">
-            <span class="input-group-addon" id="basic-addon2">Message</span>
-            <input type="text" id="messageBox" class="form-control input_color" placeholder="Type a message..."
-                   aria-describedby="basic-addon2" onkeydown="messageSendEnter(event)">
-            <span class="input-group-btn">
-            <button type="submit" class="btn btn-primary btn_color" value="Send" onClick="messageSend()"
-                    id="submitMessage">
-                Submit
-            </button></span>
+
+    <div class="white_background">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+             <div class="input-group input-group-md" id="container_identification2">
+                 <span class="input-group-addon" id="basic-addon2">Message</span>
+                 <input type="text" id="messageBox" class="form-control input_color" placeholder="Type a message..."
+                        aria-describedby="basic-addon2" onkeydown="messageSendEnter(event)">
+                     <span class="input-group-btn">
+                     <button type="submit" class="btn btn-primary btn_color" value="Send" onClick="messageSend()"
+                             id="submitMessage">
+                         Submit
+                     </button></span>
+             </div>
+             <form class="box" method="post" action="" id="fileImage" enctype="multipart/form-data">
+                 <input class="box__file" type="file" name="files[]" id="fileInput" accept="image/*"
+                        data-multiple-caption="{count} files selected" multiple/>
+                 <button class="box__button" type="submit">Upload</button>
+             </form>
+                </div>
+         </div>
+        </div>
 </div>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.3.2/js/tether.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+<script src="https://s3-eu-west-1.amazonaws.com/librariesweb/bootstrap.min.js"></script>
 <script>
     var socket = io();
     socket.on('chat message', function (msg) {
-        $('#messages').append($('<li class="list-group-item">').text(msg));
+        $('#messages').prepend($('<li class="list-group-item">').text(msg));
         var elem = document.getElementById('messagewindow');
         elem.scrollTop = elem.scrollHeight;
     });
@@ -191,19 +215,36 @@
         socket.emit('name chat', name)
     }
 
-     function messageSend(){
-         socket.emit('chat message', $('#messageBox').val());
-         $('#messageBox').val('');
-         return false;
-     }
+    function messageSend() {
+        socket.emit('chat message', $('#messageBox').val());
+        $('#messageBox').val('');
+        return false;
+    }
 
-    function messageSendEnter(eventEnter){
-        if (eventEnter.keyCode == 13){
+    function messageSendEnter(eventEnter) {
+        if (eventEnter.keyCode == 13) {
             socket.emit('chat message', $('#messageBox').val());
             $('#messageBox').val('');
             return false;
         }
     }
+
+    $(document).ready(function () {
+        $(document).on('submit', '#fileImage', function () {
+            console.log("Initiated function sendImage");
+            var fileImage = document.querySelector('#fileInput');
+            console.log(fileImage.files[0]);
+            var imageMessage = fileImage.files[0];
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('#messages').prepend($('<li class="list-group-item"><img src="' + e.target.result + '" >'));
+            }
+
+            reader.readAsDataURL(imageMessage);
+            return false;
+        });
+    });
+
 </script>
 
 </body>
