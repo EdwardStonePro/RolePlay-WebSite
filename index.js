@@ -24,6 +24,7 @@ io.on('connection', function (socket) {
         console.log(associativearray_ID_Name);
         ioname = name;
     });
+    
     socket.on('chat message', function (msg) {
         /*if(name === false){
          name = msg
@@ -60,6 +61,12 @@ io.on('connection', function (socket) {
         }
         sendMessage(msg, ioname, idname, io, socket);
         //}
+    });
+    
+    socket.on('chat image', function(imageMessage){
+        console.log('Entered server-side function chat image from socket on; ie received imageMessage from client');
+        console.log(imageMessage);
+        socket.broadcast.emit('chat image', { image: true, buffer: imageMessage.toString('base64') });
     });
 
 

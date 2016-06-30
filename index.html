@@ -201,6 +201,14 @@
         var elem = document.getElementById('messagewindow');
         elem.scrollTop = elem.scrollHeight;
     });
+    socket.on('chat image', function(imageMessageFromSocket){
+        console.log(imageMessageFromSocket);
+        var img = new Image();
+        img.src = 'data:image/jpeg;base64,' + imageMessageFromSocket.buffer;
+        console.log(img);
+        console.log('Receiving data from server, ie receiving image from the other client (client->server->client)');
+        $('#messages').prepend($('<li class="list-group-item"><img src="' + img.src + '" >'))
+    });
 
 </script>
 
@@ -238,9 +246,13 @@
             var reader = new FileReader();
             reader.onload = function (e) {
                 $('#messages').prepend($('<li class="list-group-item"><img src="' + e.target.result + '" >'));
-            }
-
+            };
             reader.readAsDataURL(imageMessage);
+            console.log('Sending data to the server');
+            socket.emit('chat image', imageMessage);
+
+
+
             return false;
         });
     });
