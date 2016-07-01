@@ -269,12 +269,8 @@
                 }
 
                 //if((imageMessage.size / 1024) < 1300){
-                    $('#messages').prepend($('<li class="list-group-item"><img src="' + previewImage.src + '"' +
-                            ' height="'+previewImage.height+'" width="'+previewImage.width+'">'));
-
-                <!-- }else{
-                    console.log("File size of the image is too big, please retry with a smaller version")
-                } -->
+                $('#messages').prepend($('<li class="list-group-item"><img src="' + previewImage.src + '"' +
+                        ' height="'+previewImage.height+'" width="'+previewImage.width+'">'));
             };
             reader.readAsDataURL(imageMessage);
             socket.emit('chat image', imageMessage);
