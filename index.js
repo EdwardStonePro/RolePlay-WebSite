@@ -94,12 +94,12 @@ function rollThemAll(msg) {
                 msg += ", " + (Math.floor(Math.random() * (rollNumber - 1 + 1)) + 1);
             }
             msg += " (" + result[4] + ")";
-        } else if (result[1] == "roll2p60") {
+        } else if (result[1] == "roll2f60") {
             for (var rolls = 0; rolls < (+numberOfRolls); rolls++) {
                 msg += ", " + (Math.floor(Math.random() * (60 - 1 + 1)) + 1);
             }
             msg += " (" + result[4] + ")";
-        } else if (result[1] == "roll2p15") {
+        } else if (result[1] == "roll2f15") {
             for (var rolls = 0; rolls < (+numberOfRolls); rolls++) {
                 msg += ", " + (Math.floor(Math.random() * (15 - 1 + 1)) + 1);
             }
@@ -108,7 +108,7 @@ function rollThemAll(msg) {
             msg = wrongCommand(msg);
         }
         console.log(msg);
-    } else if (msg == "roll opfabed") {
+    } else if (msg == "roll opedward") {
         msg = "You rolled, 1 (100)";
     }
     else {

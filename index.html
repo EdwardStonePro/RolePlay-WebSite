@@ -262,17 +262,24 @@
                     previewImage.height = 600;
                     console.log(previewImage.height);
                 }
+
                 if(previewImage.width >800){
                     console.log("width over 800");
                     previewImage.width=800;
                 }
-                $('#messages').prepend($('<li class="list-group-item"><img src="' + previewImage.src + '"' +
-                        ' height="'+previewImage.height+'" width="'+previewImage.width+'">'));
+
+                if((imageMessage.size / 1024) < 1300){
+                    $('#messages').prepend($('<li class="list-group-item"><img src="' + previewImage.src + '"' +
+                            ' height="'+previewImage.height+'" width="'+previewImage.width+'">'));
+                    socket.emit('chat image', imageMessage);
+                }else{
+                    console.log("File size of the image is too big, please retry with a smaller version")
+                }
             };
             reader.readAsDataURL(imageMessage);
 
             console.log('Sending data to the server');
-            socket.emit('chat image', imageMessage);
+
 
 
 
