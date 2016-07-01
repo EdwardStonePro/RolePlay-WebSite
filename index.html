@@ -205,9 +205,16 @@
         console.log(imageMessageFromSocket);
         var img = new Image();
         img.src = 'data:image/jpeg;base64,' + imageMessageFromSocket.buffer;
+        if(img.height > 600){
+            img.height = 600;
+        }
+        if(img.width >800){
+            img.width=800;
+        }
         console.log(img);
         console.log('Receiving data from server, ie receiving image from the other client (client->server->client)');
-        $('#messages').prepend($('<li class="list-group-item"><img src="' + img.src + '" >'))
+        $('#messages').prepend($('<li class="list-group-item"><img src="' + img.src + '" width="'+img.width+'" ' +
+                'height="'+img.height+'" >'))
     });
 
 </script>
@@ -241,13 +248,29 @@
         $(document).on('submit', '#fileImage', function () {
             console.log("Initiated function sendImage");
             var fileImage = document.querySelector('#fileInput');
+
             console.log(fileImage.files[0]);
             var imageMessage = fileImage.files[0];
             var reader = new FileReader();
             reader.onload = function (e) {
-                $('#messages').prepend($('<li class="list-group-item"><img src="' + e.target.result + '" >'));
+                var previewImage = new Image();
+                previewImage.src = e.target.result;
+
+                if(previewImage.height > 600){
+                    console.log(previewImage.height);
+                    console.log("height over 600");
+                    previewImage.height = 600;
+                    console.log(previewImage.height);
+                }
+                if(previewImage.width >800){
+                    console.log("width over 800");
+                    previewImage.width=800;
+                }
+                $('#messages').prepend($('<li class="list-group-item"><img src="' + previewImage.src + '"' +
+                        ' height="'+previewImage.height+'" width="'+previewImage.width+'">'));
             };
             reader.readAsDataURL(imageMessage);
+
             console.log('Sending data to the server');
             socket.emit('chat image', imageMessage);
 
