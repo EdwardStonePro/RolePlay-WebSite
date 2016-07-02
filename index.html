@@ -201,6 +201,7 @@
         var elem = document.getElementById('messagewindow');
         elem.scrollTop = elem.scrollHeight;
     });
+
     socket.on('chat image', function(imageMessageFromSocket){
         console.log(imageMessageFromSocket);
         var img = new Image();
@@ -214,8 +215,16 @@
         console.log(img);
         console.log('Receiving data from server, ie receiving image from the other client (client->server->client)');
         $('#messages').prepend($('<li class="list-group-item"><img src="' + img.src + '" width="'+img.width+'" ' +
-                'height="'+img.height+'" >'))
+              'height="'+img.height+'" >'));
     });
+
+    socket.on('chat retrieval', function(logChat){
+        console.log(logChat);
+        for(var i = 0, len = logChat.length; i<len ; i++) {
+            console.log(logChat[i]);
+            $('#messages').prepend($('<li class="list-group-item">').text(logChat[i]));
+        }
+     });
 
 </script>
 
@@ -260,12 +269,14 @@
                     console.log(previewImage.height);
                     console.log("height over 600");
                     previewImage.height = 600;
-                    console.log(previewImage.height);
+                    console.log("new height: "+previewImage.height);
                 }
 
                 if(previewImage.width >800){
+                    console.log(previewImage.width);
                     console.log("width over 800");
                     previewImage.width=800;
+                    console.log("new width: "+previewImage.width);
                 }
 
                 //if((imageMessage.size / 1024) < 1300){
