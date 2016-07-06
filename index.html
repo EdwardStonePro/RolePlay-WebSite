@@ -206,18 +206,20 @@
         console.log(imageMessageFromSocket);
         var img = new Image();
         img.src = 'data:image/jpeg;base64,' + imageMessageFromSocket.buffer;
-        console.log("natural width and height: "+img.naturalWidth+" "+img.naturalHeight);
-        console.log("img width and height: "+img.width+" "+img.height);
-        if(img.height > 600 || img.height == 0){
-            img.height = 600;
-        }
-        if(img.width >800 || img.width == 0){
-            img.width=800;
-        }
-        console.log(img);
-        console.log('Receiving data from server, ie receiving image from the other client (client->server->client)');
-        $('#messages').prepend($('<li class="list-group-item"><img src="' + img.src + '" width="'+img.width+'" ' +
-              'height="'+img.height+'" >'));
+        $(img).load(function(){
+            console.log("natural width and height: "+img.naturalWidth+" "+img.naturalHeight);
+            console.log("img width and height: "+img.width+" "+img.height);
+            if(img.height > 600){
+                img.height = 600;
+            }
+            if(img.width >800){
+                img.width=800;
+            }
+            console.log(img);
+            console.log('Receiving data from server, ie receiving image from the other client (client->server->client)');
+            $('#messages').prepend($('<li class="list-group-item"><img src="' + img.src + '" width="'+img.width+'" ' +
+                  'height="'+img.height+'" >'));
+        });
     });
 
     socket.on('chat retrieval', function(logChat){
