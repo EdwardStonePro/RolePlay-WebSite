@@ -68,8 +68,7 @@ io.on('connection', function (socket) {
         console.log(imageMessage);
         io.emit('chat image', { image: true, buffer: imageMessage.toString('base64') });
     });
-
-
+    
 });
 
 http.listen(28015, function () {

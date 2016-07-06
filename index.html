@@ -206,6 +206,8 @@
         console.log(imageMessageFromSocket);
         var img = new Image();
         img.src = 'data:image/jpeg;base64,' + imageMessageFromSocket.buffer;
+        console.log("natural width and height: "+img.naturalWidth+" "+img.naturalHeight);
+        console.log("img width and height: "+img.width+" "+img.height);
         if(img.height > 600 || img.height == 0){
             img.height = 600;
         }
