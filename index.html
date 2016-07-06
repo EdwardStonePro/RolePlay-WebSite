@@ -264,14 +264,17 @@
             reader.onload = function (e) {
                 var previewImage = new Image();
                 previewImage.src = e.target.result;
-                if(previewImage.height > 600){
+                console.log(previewImage.naturalHeight+" and "+previewImage.naturalWidth);
+                previewImage.height = previewImage.naturalHeight;
+                previewImage.width = previewImage.naturalWidth;
+                if(previewImage.naturalHeight > 600){
                     previewImage.height = 600;
                 }
-                if(previewImage.width > 800){
+                if(previewImage.naturalWidth > 800){
                     previewImage.width=800;
                 }
                 $('#messages').prepend($('<li class="list-group-item"><img src="' +previewImage.src + '"'+
-                ' height="'+previewImage.height+'" width="'+previewImage.width+'">'));
+                        ' height="'+previewImage.height+'" width="'+previewImage.width+'">'));
             };
             reader.readAsDataURL(imageMessage);
             socket.emit('chat image', imageMessage);
