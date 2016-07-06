@@ -264,23 +264,14 @@
             reader.onload = function (e) {
                 var previewImage = new Image();
                 previewImage.src = e.target.result;
-
                 if(previewImage.height > 600){
-                    console.log(previewImage.height);
-                    console.log("height over 600");
                     previewImage.height = 600;
-                    console.log("new height: "+previewImage.height);
                 }
-
-                if(previewImage.width >800){
-                    console.log(previewImage.width);
-                    console.log("width over 800");
+                if(previewImage.width > 800){
                     previewImage.width=800;
-                    console.log("new width: "+previewImage.width);
                 }
-                console.log("Nous verrons si ca marche.")
-                $('#messages').prepend($('<li class="list-group-item"><img src="' + previewImage.src + '"' +
-                        ' height="'+previewImage.height+'" width="'+previewImage.width+'">'));
+                $('#messages').prepend($('<li class="list-group-item"><img src="' +previewImage.src + '"'+
+                ' height="'+previewImage.height+'" width="'+previewImage.width+'">'));
             };
             reader.readAsDataURL(imageMessage);
             socket.emit('chat image', imageMessage);
