@@ -72,7 +72,7 @@ io.on('connection', function (socket) {
 
 });
 
-http.listen(process.env.PORT, function () {
+http.listen(28015, function () {
     console.log('listening on *:28015');
 });
 
