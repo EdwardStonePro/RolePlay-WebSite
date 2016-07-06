@@ -206,10 +206,10 @@
         console.log(imageMessageFromSocket);
         var img = new Image();
         img.src = 'data:image/jpeg;base64,' + imageMessageFromSocket.buffer;
-        if(img.height > 600){
+        if(img.height > 600 || img.height == 0){
             img.height = 600;
         }
-        if(img.width >800){
+        if(img.width >800 || img.width == 0){
             img.width=800;
         }
         console.log(img);
