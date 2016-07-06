@@ -264,12 +264,12 @@
         }
         if(eventEnter.keyCode == 38){
             if(upIndex == undefined){
-                upIndex =2;
+                upIndex =5;
                 $('#messageBox').val(lastCommandsHTML[upIndex]);
             }else{
                 upIndex--;
                 if(upIndex == -1){
-                    upIndex = 2;
+                    upIndex = 5;
                 }
                 $('#messageBox').val(lastCommandsHTML[upIndex]);
             }
@@ -280,7 +280,7 @@
                 $('#messageBox').val(lastCommandsHTML[upIndex]);
             }
             upIndex++;
-            if(upIndex > 2){
+            if(upIndex > 5){
                 upIndex = 0;
             }
             $('#messageBox').val(lastCommandsHTML[upIndex]);
