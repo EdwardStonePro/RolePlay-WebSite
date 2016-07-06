@@ -34,8 +34,11 @@ io.on('connection', function (socket) {
         /*if(name === false){
          name = msg
          }else{*/
+        var socketPerson = associative_array_chatPerson[socket.id];
         var id_name;
         if (msg[0] == "/") {
+            socketPerson.pushLastCommands(msg);
+            socket.emit("last commands", socketPerson.lastCommands);
             msg = msg.split("/")[1];
             if (msg[0] == "t" && msg[1] == "o") {
                 var new_message = "";

@@ -24,4 +24,12 @@ ChatPerson.prototype.getSocket = function(){
     return this.socket;
 };
 
+ChatPerson.prototype.pushLastCommands = function(command){
+    if(this.lastCommands.length >= 3) {
+        this.lastCommands.shift();
+    }else{
+        this.lastCommands.push(command);
+    }
+};
+
 module.exports = ChatPerson;
