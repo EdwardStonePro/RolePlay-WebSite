@@ -27,6 +27,7 @@ ChatPerson.prototype.getSocket = function(){
 ChatPerson.prototype.pushLastCommands = function(command){
     if(this.lastCommands.length >= 3) {
         this.lastCommands.shift();
+        this.lastCommands.push(command);
     }else{
         this.lastCommands.push(command);
     }
