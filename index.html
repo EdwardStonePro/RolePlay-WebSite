@@ -260,23 +260,6 @@
 
             console.log(fileImage.files[0]);
             var imageMessage = fileImage.files[0];
-            var reader = new FileReader();
-            reader.onload = function (e) {
-                var previewImage = new Image();
-                previewImage.src = e.target.result;
-                console.log(previewImage.naturalHeight+" and "+previewImage.naturalWidth);
-                previewImage.height = previewImage.naturalHeight;
-                previewImage.width = previewImage.naturalWidth;
-                if(previewImage.naturalHeight > 600){
-                    previewImage.height = 600;
-                }
-                if(previewImage.naturalWidth > 800){
-                    previewImage.width=800;
-                }
-                $('#messages').prepend($('<li class="list-group-item"><img src="' +previewImage.src + '"'+
-                        ' height="'+previewImage.height+'" width="'+previewImage.width+'">'));
-            };
-            reader.readAsDataURL(imageMessage);
             socket.emit('chat image', imageMessage);
             console.log('Sending data to the server');
 

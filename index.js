@@ -66,7 +66,7 @@ io.on('connection', function (socket) {
     socket.on('chat image', function(imageMessage){
         console.log('Entered server-side function chat image from socket on; ie received imageMessage from client');
         console.log(imageMessage);
-        socket.broadcast.emit('chat image', { image: true, buffer: imageMessage.toString('base64') });
+        io.emit('chat image', { image: true, buffer: imageMessage.toString('base64') });
     });
 
 
