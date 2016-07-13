@@ -76,6 +76,6 @@ io.on('connection', function (socket) {
 
 });
 
-server.listen(28015, function () {
+server.listen(80, function () {
     console.log('listening on *:80');
 });
