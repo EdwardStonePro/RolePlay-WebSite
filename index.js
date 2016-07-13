@@ -1,11 +1,13 @@
-var app = require('express')();
-var http = require('http').Server(app);
-var io = require('socket.io')(http);
+var express = require('express');
+var app = express();
+var server = require('http').createServer(app);
+var io = require('socket.io')(server);
 var ChatPerson = require('./chatClasses');
 var checkFunctions = require('./checkFunctions');
 var associative_array_chatPerson = {};
 var logChat = [];
 
+app.use(express.static(__dirname+'/js'));
 
 app.get('/', function (req, res) {
     res.sendFile(__dirname + '/index.html');
@@ -29,7 +31,7 @@ io.on('connection', function (socket) {
         console.log(logChat);
         io.to(socket.id).emit("chat retrieval", logChat);
     });
-    
+
     socket.on('chat message', function (msg) {
         /*if(name === false){
          name = msg
@@ -65,16 +67,15 @@ io.on('connection', function (socket) {
             associative_array_chatPerson,logChat);
         //}
     });
-    
+
     socket.on('chat image', function(imageMessage){
         console.log('Entered server-side function chat image from socket on; ie received imageMessage from client');
         console.log(imageMessage);
         io.emit('chat image', { image: true, buffer: imageMessage.toString('base64') });
     });
-    
+
 });
 
-http.listen(80, function () {
+server.listen(28015, function () {
     console.log('listening on *:80');
 });
-
