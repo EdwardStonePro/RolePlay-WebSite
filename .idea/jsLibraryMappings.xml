@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project version="4">
-  <component name="JavaScriptLibraryMappings">
-    <file url="file://$PROJECT_DIR$" libraries="{RollChatWeb node_modules}" />
-    <file url="PROJECT" libraries="{bootstrap, jquery-3.0.0, socket.io-1.4.5}" />
-  </component>
-</project>
