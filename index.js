@@ -1,6 +1,11 @@
 var express = require('express');
+var fs = require('fs');
 var app = express();
-var server = require('http').createServer(app);
+var options = {
+  key : fs.readFileSync('server.enc.key'),
+  cert : fs.readFileSync('server.crt')
+};
+var server = require('https').createServer(options,app);
 var io = require('socket.io')(server);
 var ChatPerson = require('./chatClasses');
 var checkFunctions = require('./checkFunctions');
