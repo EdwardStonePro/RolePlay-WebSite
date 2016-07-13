@@ -31,9 +31,6 @@
             }
         }
 
-        .background_overlay {
-        }
-
         #chatbox {
 
         }
@@ -131,21 +128,20 @@
 
 
 <body>
-<div class="background_overlay">
-    <nav class="navbar navbar-light bg-faded navbar-fixed-top container-fluid">
-        <div>
-            <div class="navbar-header">
-                <a class="navbar-brand" href="#">RolePlay: The New Age</a>
-            </div>
-            <ul class="nav navbar-nav">
-                <li class="nav-item active"><a href="#" class="nav-link">Chat Home</a></li>
-                <li class="nav-item"><a href="#" class="nav-link">Images</a></li>
-                <li class="nav-item"><a href="#" class="nav-link">Coming soon</a></li>
-                <li class="nav-item"><a href="#" class="nav-link">Coming soon</a></li>
-            </ul>
+<nav class="navbar navbar-light bg-faded navbar-fixed-top container-fluid">
+    <div>
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">RolePlay: The New Age</a>
         </div>
-    </nav>
-
+        <ul class="nav navbar-nav">
+            <li class="nav-item active"><a href="#" class="nav-link">Chat Home</a></li>
+            <li class="nav-item"><a href="#" class="nav-link">Images</a></li>
+            <li class="nav-item"><a href="#" class="nav-link">Coming soon</a></li>
+            <li class="nav-item"><a href="#" class="nav-link">Coming soon</a></li>
+        </ul>
+    </div>
+</nav>
+<div id ="hidden">
     <div class="container" id="container_identification">
 
             <div class="input-group col-md-6 col-md-offset-3 col-xs-8 input-group-md">
@@ -160,7 +156,6 @@
             </div>
 
         </div>
-    </div>
     <div class="container text-center" id="chatbox">
         <div id="messagewindow">
             <ul style="display:none;" id="messages" class="list-group"></ul>
@@ -185,11 +180,21 @@
                         data-multiple-caption="{count} files selected" multiple/>
                  <button class="box__button" type="submit">Upload</button>
              </form>
+                <button id="canvasReplace">Click me to hide everything!</button>
                 </div>
          </div>
         </div>
 </div>
-
+<div style="display:none;" id="divCanvas">
+    <p>Hello everyone, I'm just testing my code so don't mind me!</p>
+    <div class="row">
+        <div class="col-md col-md-offset-2">
+            <canvas id="myCanvas" width="1280" height="720" style="border:1px solid #000000;"></canvas>
+        </div>
+    </div>
+    <button id="chatReplace">Click to show chat!</button>
+</div>
+<script type="text/javascript" src="/js/changeImageSizeRatio.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.3.2/js/tether.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
@@ -210,12 +215,9 @@
         $(img).load(function(){
             console.log("natural width and height: "+img.naturalWidth+" "+img.naturalHeight);
             console.log("img width and height: "+img.width+" "+img.height);
-            if(img.height > 600){
-                img.height = 600;
-            }
-            if(img.width >800){
-                img.width=800;
-            }
+            var newImageSize = changeImageSize(img.width,img.height);
+            img.width = newImageSize[0];
+            img.height = newImageSize[1];
             console.log(img);
             console.log('Receiving data from server, ie receiving image from the other client (client->server->client)');
             $('#messages').prepend($('<li class="list-group-item"><img src="' + img.src + '" width="'+img.width+'" ' +
@@ -239,6 +241,47 @@
 </script>
 
 <script type="text/javascript">
+    $("#canvasReplace").click(function(){
+        $("#hidden").hide(1000);
+        $("#divCanvas").show(1000);
+    });
+
+    $("#chatReplace").click(function(){
+        $("#divCanvas").hide(1000);
+        $("#hidden").show(1000);
+    });
+
+    var mouseX = 0;
+    var mouseY = 0;
+    var canvas = document.getElementById('myCanvas');
+    var context = canvas.getContext('2d');
+    var paint = false;
+
+    $("#myCanvas").mousedown(function(e){
+        context.lineWidth = 5;
+        mouseX = e.pageX - this.offsetLeft;
+        mouseY= e.pageY - this.offsetTop;
+        context.moveTo(mouseX,mouseY);
+        context.beginPath();
+        paint = true;
+    });
+
+    $("#myCanvas").mousemove(function(e){
+        if(paint){
+        mouseX = e.pageX - this.offsetLeft;
+        mouseY= e.pageY - this.offsetTop;
+        context.lineTo(mouseX,mouseY);
+        context.stroke();}
+    });
+
+    $("#myCanvas").mouseup(function(e){
+        mouseX = e.pageX - this.offsetLeft;
+        mouseY= e.pageY - this.offsetTop;
+        context.lineTo(mouseX,mouseY);
+        context.stroke();
+        paint = false;
+    });
+
     function submitSend() {
         console.log("submitSend called");
         var name = document.getElementById('username_value').value;
