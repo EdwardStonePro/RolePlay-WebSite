@@ -95,7 +95,7 @@ body {
     font-family: 'Cardo', Arial, serif;
     font-weight: 700;
     font-size: 16px;
-    background:url("/sunrisingbackground.jpg");
+    background:url("/greenscene.jpg");
     background-size:cover;
     padding-top: 70px;;
 }
@@ -117,7 +117,7 @@ body {
 }
 
 .ed-nav-bar-custom{
-    background-color:#4BEC91;
+    background-color:#29A729;
 }
 
 .ed-custom-enter-bar{
@@ -127,7 +127,7 @@ body {
     left: 50%;
     transform: translate(-50%, 0);
     bottom:0;
-    background-color:#73F7AC;
+    background-color:#6CD56C;
     padding-top:10px;
     padding-bottom:10px;
 
@@ -144,13 +144,13 @@ body {
 }
 
 .btn_color {
-    background-color: #73F7AC;
-    border-color: #73F7AC;
+    background-color: #97E797;
+    border-color: #48BE48;
     color:#59606F;
 }
 
 .input_color {
-    border-color: #73F7AC;
+    border-color: #48BE48;
 }
 
 .box{
