@@ -9,14 +9,6 @@
     margin-left: 5em;
 }
 
-body {
-    font-family: 'Cardo', Arial, serif;
-    font-weight: 700;
-    font-size: 16px;
-    background-color: #7672BF;
-    padding-top: 70px;;
-}
-
 @media screen and (max-width: 768px) {
     body {
         padding-top: 150px;
@@ -52,24 +44,6 @@ form button { width: 9%; background: #d2f8d2; border: none; padding: 5px; border
     width: 1200px;
 }
 
-#messages li {
-    padding: 5px 10px;
-    margin-top: 5px;
-    border-radius: 5px;
-    background-color: #5F5B96;
-    color: white;
-    text-align: left;
-    animation: fadeOut 2s linear forwards
-}
-
-.btn_color {
-    background-color: #A39ED3;
-    border-color: #5F5B96;
-}
-
-.input_color {
-    border-color: #A39ED3;
-}
 
 @keyframes fadeOut {
     0% {
@@ -83,20 +57,7 @@ form button { width: 9%; background: #d2f8d2; border: none; padding: 5px; border
     }
 }
 
-#messages li:nth-child(odd) {
-    background-color: #A39ED3;
-    color: white;
-}
 
-.white_background {
-    display:block !important;
-    position: fixed !important;
-    width:100%;
-    left: 50%;
-    transform: translate(-50%, 0);
-    bottom:0;
-    background-color: white;
-}
 
 .fixed_class {
 
@@ -114,10 +75,86 @@ form button { width: 9%; background: #d2f8d2; border: none; padding: 5px; border
     left: 70%;
 
 }
-section{
-    padding: 75px 0;
-}
+
 
 .medium-padding{
     padding: 50px 0;
 }
+
+#myCanvas{
+    background-color:white;
+    margin-left: 230px;
+}
+
+section{
+    padding: 15px 50px;
+    background-color:#FFEFD6;
+}
+
+body {
+    font-family: 'Cardo', Arial, serif;
+    font-weight: 700;
+    font-size: 16px;
+    background:url("/sunrisingbackground.jpg");
+    padding-top: 70px;;
+}
+
+#messages li:nth-child(odd) {
+    background-color: #A39ED3;
+    color: white;
+}
+
+.ed-btn-custom{
+    margin-top:10px;
+    text-align: center;
+    background-color:#FDBEC1;
+}
+
+.ed-flex-container{
+    display:flex;
+    justify-content: center;
+}
+
+.ed-nav-bar-custom{
+    background-color:#497CFC;
+}
+
+.ed-custom-enter-bar{
+    display:block !important;
+    position: fixed !important;
+    width:100%;
+    left: 50%;
+    transform: translate(-50%, 0);
+    bottom:0;
+    background-color:#719AFF;
+    padding-top:10px;
+    padding-bottom:10px;
+
+}
+
+#messages li {
+    padding: 5px 10px;
+    margin-top: 5px;
+    border-radius: 5px;
+    background-color: #5F5B96;
+    color: white;
+    text-align: left;
+    animation: fadeOut 2s linear forwards
+}
+
+.btn_color {
+    background-color: #719AFF;
+    border-color: #497CFC;
+    color:#59606F;
+}
+
+.input_color {
+    border-color: #497CFC;
+}
+
+.box{
+    margin-top:5px;
+}
+
+
+
