@@ -117,7 +117,11 @@ body {
 }
 
 .ed-nav-bar-custom{
-    background-color:#29A729;
+    background: #29a729; /* Old browsers */
+    background: -moz-linear-gradient(top, #29a729 0%, #6cd56c 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(top, #29a729 0%,#6cd56c 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom, #29a729 0%,#6cd56c 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#29a729', endColorstr='#6cd56c',GradientType=0 ); /* IE6-9 */
 }
 
 .ed-custom-enter-bar{
