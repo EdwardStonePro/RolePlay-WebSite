@@ -5,124 +5,8 @@
     <title>Socket.IO chat</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://s3-eu-west-1.amazonaws.com/librariesweb/bootstrap.min.css" rel="stylesheet" media="all">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+    <link href="/css/customcss.css" rel="stylesheet" media="all">
 
-        .top_decal {
-            margin-top: 1.25em;
-            margin-left: 5em;
-        }
-
-        body {
-            font-family: 'Cardo', Arial, serif;
-            font-weight: 700;
-            font-size: 16px;
-            background-color: #7672BF;
-            padding-top: 70px;;
-        }
-
-        @media screen and (max-width: 768px) {
-            body {
-                padding-top: 150px;
-            }
-        }
-
-        #chatbox {
-
-        }
-
-        #messagewindow {
-            position: relative;
-            top: 2px;
-            bottom: 30px;
-            padding-bottom: 110px
-        }
-
-        #namechatform {
-            top: 10px;
-        }
-
-        #formt {
-            padding: 3px;
-            bottom: 0;
-            width: 100%;
-        }
-
-        /*form input { border: 0; padding: 10px; width: 90%; margin-right: .5%; }
-        form button { width: 9%; background: #d2f8d2; border: none; padding: 5px; border-radius:5px  }*/
-        #messages {
-            list-style-type: none;
-            padding-top: 10px;
-            width: 1200px;
-        }
-
-        #messages li {
-            padding: 5px 10px;
-            margin-top: 5px;
-            border-radius: 5px;
-            background-color: #5F5B96;
-            color: white;
-            text-align: left;
-            animation: fadeOut 2s linear forwards
-        }
-
-        .btn_color {
-            background-color: #A39ED3;
-            border-color: #5F5B96;
-        }
-
-        .input_color {
-            border-color: #A39ED3;
-        }
-
-        @keyframes fadeOut {
-            0% {
-                opacity: 0;
-            }
-            50% {
-                opacity: 0.5;
-            }
-            100% {
-                opacity: 1;
-            }
-        }
-
-        #messages li:nth-child(odd) {
-            background-color: #A39ED3;
-            color: white;
-        }
-
-        .white_background {
-            display:block !important;
-            position: fixed !important;
-            width:100%;
-            left: 50%;
-            transform: translate(-50%, 0);
-            bottom:0;
-            background-color: white;
-        }
-
-        .fixed_class {
-
-            position: fixed !important;
-            bottom: 10px;
-            width: 930px;
-            left: 46%;
-            transform: translate(-50%, 0);
-        }
-
-        .fixed_class_button {
-            position: fixed !important;
-            bottom: 10px;
-            width: 100px;
-            left: 70%;
-
-        }
-    </style>
 
 </head>
 
@@ -186,8 +70,16 @@
         </div>
 </div>
 <div style="display:none;" id="divCanvas">
-    <p>Hello everyone, I'm just testing my code so don't mind me!</p>
-    <div class="row">
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="section-heading">Canvas drawing</h1>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="row medium-padding">
         <div class="col-md col-md-offset-2">
             <canvas id="myCanvas" width="1280" height="720" style="border:1px solid #000000;"></canvas>
         </div>
@@ -199,7 +91,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
 <script src="https://s3-eu-west-1.amazonaws.com/librariesweb/bootstrap.min.js"></script>
-<script src="/imagesize.js"></script>
+<script src="/js/imagesize.js"></script>
 <script>
     var socket = io();
     var lastCommandsHTML = [];
@@ -257,8 +149,9 @@
     var canvas = document.getElementById('myCanvas');
     var context = canvas.getContext('2d');
     var paint = false;
+    var canvasID = $("#myCanvas");
 
-    $("#myCanvas").mousedown(function(e){
+    canvasID.mousedown(function(e){
         context.lineWidth = 5;
         mouseX = e.pageX - this.offsetLeft;
         mouseY= e.pageY - this.offsetTop;
@@ -267,7 +160,7 @@
         paint = true;
     });
 
-    $("#myCanvas").mousemove(function(e){
+    canvasID.mousemove(function(e){
         if(paint){
         mouseX = e.pageX - this.offsetLeft;
         mouseY= e.pageY - this.offsetTop;
@@ -275,7 +168,7 @@
         context.stroke();}
     });
 
-    $("#myCanvas").mouseup(function(e){
+    canvasID.mouseup(function(e){
         mouseX = e.pageX - this.offsetLeft;
         mouseY= e.pageY - this.offsetTop;
         context.lineTo(mouseX,mouseY);
@@ -293,17 +186,18 @@
         socket.emit('name chat', name)
     }
 
+    var messageBoxSelector = $('#messageBox');
     function messageSend() {
-        socket.emit('chat message', $('#messageBox').val());
-        $('#messageBox').val('');
+        socket.emit('chat message', messageBoxSelector.val());
+        messageBoxSelector.val('');
         return false;
     }
 
     var upIndex;
     function messageSendEnter(eventEnter) {
         if (eventEnter.keyCode == 13) {
-            socket.emit('chat message', $('#messageBox').val());
-            $('#messageBox').val('');
+            socket.emit('chat message', messageBoxSelector.val());
+            messageBoxSelector.val('');
             return false;
         }
         if(eventEnter.keyCode == 38){
@@ -327,7 +221,7 @@
             if(upIndex > 5){
                 upIndex = 0;
             }
-            $('#messageBox').val(lastCommandsHTML[upIndex]);
+            messageBoxSelector.val(lastCommandsHTML[upIndex]);
 
         }
     }
