@@ -117,7 +117,7 @@ body {
 }
 
 .ed-nav-bar-custom{
-    background-color:#497CFC;
+    background-color:#4BEC91;
 }
 
 .ed-custom-enter-bar{
@@ -127,7 +127,7 @@ body {
     left: 50%;
     transform: translate(-50%, 0);
     bottom:0;
-    background-color:#719AFF;
+    background-color:#73F7AC;
     padding-top:10px;
     padding-bottom:10px;
 
@@ -144,13 +144,13 @@ body {
 }
 
 .btn_color {
-    background-color: #719AFF;
-    border-color: #497CFC;
+    background-color: #73F7AC;
+    border-color: #73F7AC;
     color:#59606F;
 }
 
 .input_color {
-    border-color: #497CFC;
+    border-color: #73F7AC;
 }
 
 .box{
