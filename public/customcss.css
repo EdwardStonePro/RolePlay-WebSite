@@ -95,6 +95,9 @@ body {
     font-family: 'Cardo', Arial, serif;
     font-weight: 700;
     font-size: 16px;
+}
+
+.ed-background-custom{
     background:url("/greenscene.jpg");
     background-size:cover;
     padding-top: 70px;;
