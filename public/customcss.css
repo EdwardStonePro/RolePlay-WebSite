@@ -96,7 +96,7 @@ body {
     font-weight: 700;
     font-size: 16px;
     background:url("/sunrisingbackground.jpg");
-    background-size:contain;
+    background-size:cover;
     padding-top: 70px;;
 }
 
