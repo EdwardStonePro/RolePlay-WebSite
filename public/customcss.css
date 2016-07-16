@@ -131,7 +131,11 @@ body {
     left: 50%;
     transform: translate(-50%, 0);
     bottom:0;
-    background-color:#6CD56C;
+    background: #6cd56c; /* Old browsers */
+    background: -moz-linear-gradient(top, #6cd56c 0%, #29a729 79%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(top, #6cd56c 0%,#29a729 79%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom, #6cd56c 0%,#29a729 79%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#6cd56c', endColorstr='#29a729',GradientType=0 ); /* IE6-9 */
     padding-top:10px;
     padding-bottom:10px;
 
