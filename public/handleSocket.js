@@ -40,10 +40,10 @@ socket.on('last commands', function (lastCommands) {
 });
 
 socket.on('receive drawing', function(drawObject){
-    context.moveTo(drawObject.coordinatesX[0], drawObject.coordinatesY[0]);
-    context.beginPath();
+    CANVAS.context.moveTo(drawObject.coordinatesX[0], drawObject.coordinatesY[0]);
+    CANVAS.context.beginPath();
     for(var i =1;i<drawObject.coordinatesX.length;i++){
-        context.lineTo(drawObject.coordinatesX[i], drawObject.coordinatesY[i]);
-        context.stroke();
+        CANVAS.context.lineTo(drawObject.coordinatesX[i], drawObject.coordinatesY[i]);
+        CANVAS.context.stroke();
     }
 });
