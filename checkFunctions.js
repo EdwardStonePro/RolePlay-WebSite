@@ -47,7 +47,7 @@ function wrongCommand(msg) {
     return msg = "You entered a wrong command :(";
 }
 
-function sendMessage(msg, chatPersonObject,id_name,io,associative_array_chatPerson,logChat) {
+function sendMessage(msg, chatPersonObject, id_name, io, associative_array_chatPerson, logChat) {
     msg = chatPersonObject.getUsername() + ": " + msg;
     if (id_name) {
         var keyPerson = findUser(id_name, associative_array_chatPerson);
@@ -67,11 +67,11 @@ function sendMessage(msg, chatPersonObject,id_name,io,associative_array_chatPers
     console.log(msg);
 }
 
-function findUser(id_name,associative_array_chatPerson){
-    for(var key in associative_array_chatPerson){
-        if(associative_array_chatPerson.hasOwnProperty(key)){
-            console.log(key+associative_array_chatPerson[key].getUsername());
-            if(associative_array_chatPerson[key].getUsername() == id_name){
+function findUser(id_name, associative_array_chatPerson) {
+    for (var key in associative_array_chatPerson) {
+        if (associative_array_chatPerson.hasOwnProperty(key)) {
+            console.log(key + associative_array_chatPerson[key].getUsername());
+            if (associative_array_chatPerson[key].getUsername() == id_name) {
                 console.log("Found user");
                 console.log("key is " + key);
                 return key;
@@ -81,6 +81,6 @@ function findUser(id_name,associative_array_chatPerson){
 }
 
 module.exports.rollThemAll = rollThemAll;
-module.exports.wrongCommand=wrongCommand;
-module.exports.sendMessage= sendMessage;
-module.exports.findUser=findUser;
+module.exports.wrongCommand = wrongCommand;
+module.exports.sendMessage = sendMessage;
+module.exports.findUser = findUser;

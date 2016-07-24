@@ -8,7 +8,7 @@ var checkFunctions = require('./checkFunctions');
 var associative_array_chatPerson = {};
 var logChat = [];
 
-app.use(express.static(path.join(__dirname,'public')));
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', function (req, res) {
     res.sendFile(__dirname + '/index.html');
@@ -26,8 +26,8 @@ io.on('connection', function (socket) {
     socket.on('name chat', function (name) {
 
         console.log("Worked man! " + name);
-        console.log("ID is "+socket.id);
-        associative_array_chatPerson[socket.id] = new ChatPerson(socket.id,name,socket);
+        console.log("ID is " + socket.id);
+        associative_array_chatPerson[socket.id] = new ChatPerson(socket.id, name, socket);
         console.log(associative_array_chatPerson[socket.id].getAllInfo());
         console.log(logChat);
         io.to(socket.id).emit("chat retrieval", logChat);
@@ -52,7 +52,7 @@ io.on('connection', function (socket) {
                 console.log(msg);
                 var splitString = /(\w+)\s(\w+)\s(\w+)/;
                 var resultSplitString = msg.match(splitString);
-                if(resultSplitString){
+                if (resultSplitString) {
                     id_name = resultSplitString[1];
                     msg = resultSplitString[2] + " " + resultSplitString[3];
                     msg = checkFunctions.rollThemAll(msg);
@@ -64,19 +64,24 @@ io.on('connection', function (socket) {
                 msg = checkFunctions.rollThemAll(msg);
             }
         }
-        checkFunctions.sendMessage(msg, associative_array_chatPerson[socket.id],id_name,io,
-            associative_array_chatPerson,logChat);
+        checkFunctions.sendMessage(msg, associative_array_chatPerson[socket.id], id_name, io,
+            associative_array_chatPerson, logChat);
         //}
     });
 
-    socket.on('chat image', function(imageMessage){
+    socket.on('chat image', function (imageMessage) {
         console.log('Entered server-side function chat image from socket on; ie received imageMessage from client');
         console.log(imageMessage);
-        io.emit('chat image', { image: true, buffer: imageMessage.toString('base64') });
+        io.emit('chat image', {image: true, buffer: imageMessage.toString('base64')});
+    });
+
+    socket.on('send drawing', function(drawObject){
+        console.log('sending info new drawing');
+        socket.broadcast.emit('receive drawing', drawObject);
     });
 
 });
 
-server.listen(80, function () {
+server.listen(28015, function () {
     console.log('listening on *:80');
 });
