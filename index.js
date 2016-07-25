@@ -80,6 +80,10 @@ io.on('connection', function (socket) {
         socket.broadcast.emit('receive drawing', drawObject);
     });
 
+    socket.on('reset canvas', function(){
+       socket.broadcast.emit('reset canvas');
+    });
+
 });
 
 server.listen(80, function () {

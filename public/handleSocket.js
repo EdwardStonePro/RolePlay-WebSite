@@ -47,3 +47,7 @@ socket.on('receive drawing', function(drawObject){
         CANVAS.context.stroke();
     }
 });
+
+socket.on('reset canvas', function(){
+    CANVAS.context.clearRect(0,0,CANVAS.canvas.width,CANVAS.canvas.height);
+});

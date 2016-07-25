@@ -21,8 +21,10 @@ var CANVAS = function(){
     return my;
 }();
 $(document).ready(function(){
+    
     $('#resetCanvas').click(function(){
         CANVAS.context.clearRect(0,0,CANVAS.canvas.width,CANVAS.canvas.height);
+        socket.emit('reset canvas');
     }) ;
 
     toolSelected.addClass('isSelected');
