@@ -40,10 +40,18 @@ socket.on('last commands', function (lastCommands) {
 });
 
 socket.on('receive drawing', function(drawObject){
-    CANVAS.context.moveTo(drawObject.coordinatesX[0], drawObject.coordinatesY[0]);
-    CANVAS.context.beginPath();
-    for(var i =1;i<drawObject.coordinatesX.length;i++){
-        CANVAS.context.lineTo(drawObject.coordinatesX[i], drawObject.coordinatesY[i]);
+    if(drawObject.typeOfDrawing == 'point'){
+        CANVAS.context.moveTo(drawObject.coordinatesX[0], drawObject.coordinatesY[0]);
+        CANVAS.context.beginPath();
+        for(var i =1;i<drawObject.coordinatesX.length;i++){
+            CANVAS.context.lineTo(drawObject.coordinatesX[i], drawObject.coordinatesY[i]);
+            CANVAS.context.stroke();
+        }
+    }else if(drawObject.typeOfDrawing == 'rectangle'){
+        CANVAS.context.moveTo(drawObject.coordinatesX,drawObject.coordinatesY);
+        CANVAS.context.beginPath();
+        CANVAS.context.rect(drawObject.coordinatesX,drawObject.coordinatesY,
+            drawObject.rectangleWidth,drawObject.rectangleHeight);
         CANVAS.context.stroke();
     }
 });

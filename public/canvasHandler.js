@@ -55,12 +55,12 @@ function enableTimer(){
 
 CANVAS.canvasID.mousedown(function (e) {
     console.log(toolSelected.attr('id'));
+    CANVAS.offsetLeftCache = this.offsetLeft;
+    CANVAS.offsetTopCache = this.offsetTop;
+    CANVAS.mouseX = e.pageX - CANVAS.offsetLeftCache;
+    CANVAS.mouseY =e.pageY - CANVAS.offsetTopCache;
     if(toolSelected.attr('id') == 'pen'){
         enableTimer();
-        CANVAS.offsetLeftCache = this.offsetLeft;
-        CANVAS.offsetTopCache = this.offsetTop;
-        CANVAS.mouseX = e.pageX - CANVAS.offsetLeftCache;
-        CANVAS.mouseY =e.pageY - CANVAS.offsetTopCache;
         var coordinates = getAndPushCoordinates(CANVAS.coordinatesX,
             CANVAS.coordinatesY,CANVAS.mouseX,CANVAS.mouseY);
         CANVAS.coordinatesX = coordinates[0];
@@ -69,7 +69,10 @@ CANVAS.canvasID.mousedown(function (e) {
         CANVAS.context.beginPath();
         CANVAS.paint = true;
     }else if (toolSelected.attr('id') == 'rectangle'){
-
+        CANVAS.context.moveTo(CANVAS.mouseX,CANVAS.mouseY);
+        CANVAS.context.beginPath();
+    }else if(toolSelected.attr('id') == 'circle'){
+        
     }
 });
 
@@ -103,7 +106,8 @@ CANVAS.canvasID.mouseup(function (e) {
         CANVAS.context.lineTo(CANVAS.mouseX, CANVAS.mouseY);
         CANVAS.context.stroke();
 
-        var drawObjectToSend = new DrawObject(CANVAS.coordinatesX,CANVAS.coordinatesY,CANVAS.drawingStyle);
+        var drawObjectToSend = new DrawObject(CANVAS.coordinatesX,CANVAS.coordinatesY,
+            CANVAS.drawingStyle, 'point');
         socket.emit('send drawing', drawObjectToSend);
         CANVAS.coordinatesX =[];
         CANVAS.coordinatesY=[];
@@ -111,7 +115,25 @@ CANVAS.canvasID.mouseup(function (e) {
         CANVAS.paint = false;
         CANVAS.timer = null;
     }else if (toolSelected.attr('id') == 'rectangle'){
+        var rectangleWidth = 0;
+        if(CANVAS.mouseX < (e.pageX - CANVAS.offsetLeftCache)){
+            rectangleWidth = (e.pageX - CANVAS.offsetLeftCache) - CANVAS.mouseX;
+        }else{
+            rectangleWidth = CANVAS.mouseX - (e.pageX - CANVAS.offsetLeftCache);
+        }
 
+        var rectangleHeight = 0;
+        if(CANVAS.mouseY < (e.pageY - CANVAS.offsetTopCache)){
+            rectangleHeight = (e.pageY - CANVAS.offsetTopCache) - CANVAS.mouseY;
+        }else{
+            rectangleHeight = CANVAS.mouseY - (e.pageY - CANVAS.offsetTopCache);
+        }
+        var drawObjectToSend = new DrawObject(CANVAS.mouseX,CANVAS.mouseY,
+            CANVAS.drawingStyle,'rectangle',rectangleHeight,rectangleWidth);
+        socket.emit('send drawing', drawObjectToSend);
+        console.log('width is '+rectangleWidth+' and height is '+rectangleHeight);
+        CANVAS.context.rect(CANVAS.mouseX,CANVAS.mouseY,rectangleWidth,rectangleHeight);
+        CANVAS.context.stroke();
     }
 });
 
